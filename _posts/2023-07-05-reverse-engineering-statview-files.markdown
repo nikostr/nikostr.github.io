@@ -14,9 +14,9 @@ Now, I recognize a binary file when I see one, and I had been interested in fami
 
 # Finding a good hex editor[^1]
 
-[^1]: In figuring out how to work effectively with these, it turns out that there were a ton of tutorial, mainly from gamers on YouTube, that dig into how to use these. This was a valuable resource to me when getting started.
+[^1]: In figuring out how to work effectively with these, it turns out that there were a ton of tutorials, mainly from gamers on YouTube, that dig into how to use these. This was a valuable resource to me when getting started.
 
-This being the first time I did anything like this, my first task ended up being identifing a hex editor suitable to the task. I played around with `xxd` since I'm used to CLI interfaces, but initially I focused mainly on the rightmost column of ASCII translations, which was not very informative. This was not the right tool for me.
+This being the first time I did anything like this, my first task ended up being identifying a hex editor suitable to the task. I played around with `xxd` since I'm used to CLI interfaces, but initially I focused mainly on the rightmost column of ASCII translations, which was not very informative. This was not the right tool for me.
 
 ![Screenshot of `xxd`](/assets/images/xxd.png)
 
@@ -32,13 +32,13 @@ Anyway! It still felt like I was left wanting - scrolling through the file with 
 
 # Figuring out StatView file structure, more or less...
 
-Now, in parallel with this there was obviously some exploration going on. All three editors had made it apparent that there were some ASCII text present in the beginning of the file, stuff like "PARVORDER", "SUPERFAMILY", "GENUS", "AR's colour score", etc. Each of these have a number of characters following them, often with a x80 close by the end of the ASCII string. Initially, I spent a lot of time trying to understand the space inbetween these strings, assuming that some data of interest was stored there, but scrolling further down the file with this editor, it became apparent that what I was looking at was probably column headers, with their corresponding data stored further down in the file! Talking to Tamara I got the shape of the data confirmed - up until this point I had not been sure that it was tabular data I was expecting.
+Now, in parallel with this there was obviously some exploration going on. All three editors had made it apparent that there was some ASCII text present in the beginning of the file, stuff like "PARVORDER", "SUPERFAMILY", "GENUS", "AR's colour score", etc. Each of these has a number of characters following them, often with a x80 close by the end of the ASCII string. Initially, I spent a lot of time trying to understand the space in-between these strings, assuming that some data of interest was stored there, but scrolling further down the file with this editor, it became apparent that what I was looking at was probably column headers, with their corresponding data stored further down in the file! Talking to Tamara I got the shape of the data confirmed - up until this point I had not been sure that it was tabular data I was expecting.
 
 Where to from here? Some of these columns, e.g. "COMMON NAME", contain ASCII data, and contain data that's understandable (at least to someone who's more familiar with birds than I am!). A joint effort by Tamara and I helped us distinguish each row here - essentially by copying the text from the hex editor into a regular text editor and cleaning it up. This in turn gave us the number of rows in the file, as well as the first actual data out of this file!
 
 ![Screenshot of wxHexEditor showing patterns of characters](/assets/images/column_patterns.png)
 
-So, at this stage we have column names, and their probable order, along with the number of rows present, as well as the content of some of the plain-text columns. Very nice! Since Tamara's familiar with the data, she could tell me e.g. that we expect all score columns to contain values in the range 1-6, which columns we expect to be integers and which we expect to be floats. Now, looking closer at the text field of the file, we can see ranges of similar-looking characters. Using the expected ranges for the values, along with the number of rows in the file, we are able to split these up into very nice chunks, and parse out single byte values for categorical variables, two-byte values for the integer scores, and what seems to be 10 byte floats. Wait a minute, 10 byte floats?!
+So, at this stage, we have column names, and their probable order, along with the number of rows present, as well as the content of some of the plain-text columns. Very nice! Since Tamara's familiar with the data, she could tell me e.g. that we expect all score columns to contain values in the range 1-6, which columns we expect to be integers and which we expect to be floats. Now, looking closer at the text field of the file, we can see ranges of similar-looking characters. Using the expected ranges for the values, along with the number of rows in the file, we are able to split these up into very nice chunks, and parse out single byte values for categorical variables, two-byte values for the integer scores, and what seems to be 10 byte floats. Wait a minute, 10 byte floats?!
 
 
 # What on earth are 10 byte floats, and how do I read them?
@@ -61,7 +61,7 @@ The code to run this is all available at https://github.com/nikostr/reversing_st
 
 # Success!
 
-Anyway! Once I had a way of reading the data portions of the file, outputting something that _looked_ right was pretty straight forward! Tamara - who actually understands what the data is supposed to mean - had a look, and Andrew Read who was involved in the original publication of the data also had a look. Tamara and I spent some time going over the column headings from the StatView files, and Tamara cross-referenced these with the data available in the publications to identify what each column actually corresponds to, cleaning it all up nicely, and confirming that the data made sense and that column headings seemed to match the ranges of the data we actually extracted.
+Anyway! Once I had a way of reading the data portions of the file, outputting something that _looked_ right was pretty straight forward! Tamara - who actually understands what the data is supposed to mean - had a look, and Andrew Read who was involved in the original publication of the data ([doi:10.1038/339618a0](https://www.doi.org/10.1038/339618a0)) also had a look. Tamara and I spent some time going over the column headings from the StatView files, and Tamara cross-referenced these with the data available in the publications to identify what each column actually corresponds to, cleaning it all up nicely, and confirming that the data made sense and that column headings seemed to match the ranges of the data we actually extracted.
 
 And now we're here! After some delays (I've published a thesis in the meantime) we're now at a stage when we think we're ready to share this data - more than 30 years after initial publication it's now publically available and accessible in a format that's readable by anyone. The cleaned datasets are available at [doi:10.5281/zenodo.8117247](https://doi.org/10.5281/zenodo.8117247) and [doi:10.5281/zenodo.8116290](https://doi.org/10.5281/zenodo.8116290), and the original data files and the code to read them into R tibbles is available at https://github.com/nikostr/reversing_statview.
 
@@ -74,6 +74,8 @@ If anyone else runs into old StatView files they want to liberate, I'll just lea
 * The overall file structure consists in a header definition providing column names (and probably column types, but I haven't figured out how these are encoded) followed by each column of data.
 * Strings are preceded by the number of bytes the string contains.
 
+If all of this just feels super confusing and out of your depth, former StatView product manager Erin Vang also seems to be doing pro-bono work in converting StatView files into other formats: more info regarding that is available [here](https://globalpragmatica.com/?p=1201).
+
 # Thoughts?
 
-I'm super new to this - this was the first time I ever used a hex editor. If you have thoughts or comments regarding this, feel free to reach out at Mastodon - I'm available at nikostr@scholar.social.
+I'm super new to this - this was the first time I ever used a hex editor. If you have thoughts or comments regarding this, feel free to reach out to me through Mastodon (nikostr@scholar.social) or to Tamara through Twitter (@tavimalara).
