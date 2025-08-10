@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "My first time reverse engineering binary files! (StatView!)"
-date:   2023-07-05 10:09:04 +0200
-categories: reverse-engineering
+title:  "ESEB poster 2025"
+date:   2025-08-10 21:00:00 +0200
+categories: posters
 ---
 
 
