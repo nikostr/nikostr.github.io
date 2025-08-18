@@ -8,16 +8,16 @@ categories: posters
 
 I chose to focus on the status of the Thymelaeaceae annotations as I'm currently trying to annotate a bunch of _Wikstroemia_ species, and I wanted to get a better idea about the status of the published annotations.
 
-# TL;DR
+## TL;DR
 All the Thymelaeaceae annotations I found have some issues with methods or the generated files themselves. The _Aquilaria sinensis_ and _A. yunnanensis_ annotations are based on transcript evidence and seem pretty okay, and can probably be used as-is, after correcting for files being badly formatted. The _Stellera chamaejasme_ annotation is not based on transcript data and has some pretty clear methods issues, and seems to suffer from over-prediction. If using the _Stellera_ annotation you probably want to account for this in some way.
 
-# Methods
+## Methods
 
-## Identifying annotations
+### Identifying annotations
 
 I have attempted to identify the annotations that are out there, but I might very well have missed something. If you know of an annotation that I should be interested in, let me know! :) Apart from the annotations I had stumbled across and the papers they reference, I also looked at Thymelaeaceae genomes in EBI and did some basic Google Scholar searches, including searching within citing papers etc.
 
-### Annotations used
+#### Annotations used
 
 The following table provides an overview of the annotations used.
 
@@ -33,7 +33,7 @@ The following table provides an overview of the annotations used.
 The _Aquilaria_ and _Stellera_ species are Thymelaeaceae. The remaining annotations were used in annotating the _A. yunnanensis_ genome.
 
 
-## OMArk
+### OMArk
 
 OMArk (v0.3.1, Nevers et al., 2024) was run using the LUCA database as recommended by the OMArk documentation. It was run as follows:
 
@@ -44,14 +44,14 @@ omark -f results/${query_name}.omamer -d $LUCA --og_fasta $query --taxid $taxids
 
 This was done for _Aquilaria sinensis_, _Stellera chamaejasme_, _A. yunnanensis_, and _Arabidopsis thaliana_. For each species, the protein fasta file from the above table above was used as is.
 
-## Mono:multi-exonic genes
+### Mono:multi-exonic genes
 ![The linked script](assets/eseb2025/count-exons.sh) was used to calculate the proportion of mono-exonic to multi-exonic genes.
 
 > [!note]
 > It turns out that how this ratio is calculated differs in the literature. Jain et al. (2008) is sometimes cited, saying that intronless genes account for appproximately 20% of total genes in rice and _Arabidopsis_. Vuruputoor et al. (2023) cite Jain et al. for a ratio of 20%, but seem to instead calculate the ratio as mono-exonic:multi-exonic genes. As is seen in the attached script, I have opted for the mono-exonic:multi-exonic ratio instead of the mono-exonic:total genes.
 
 
-## Orthofinder
+### Orthofinder
 
 OrthoFinder (v3.1.0, Emms et al., 2025) was run on proteins from _Arabidopsis_, _Stellera_, _A. sinensis_, _A. yunnanensis_, cotton, and cacao, i.e., the species used for the annotation of _A. yunnanensis_. The protein fastas used are listed in the table above. For _Arabidopsis_, _A. sinensis_, and _A. yunnanensis_ the files were used as-is. For cotton and cacao the OrthoFinder `primary_transcripts.py` script was used with ![minor modifications](https://github.com/nikostr/OrthoFinder/commit/89d8e1ad16e7403d573ea125329bd20ecfecf1de). For cacao, `primary_transcripts.py` was invoked as:
 
@@ -66,9 +66,9 @@ cat langdu.pep.fa|sed '/>/!s/\./*/g' > langdu.pep.no-dot.fa
 ```
 OrthoFinder was run without additional parameters.
 
-## Expression of _A. sinensis_ in orthogroups
+### Expression of _A. sinensis_ in orthogroups
 
-### _A. sinensis_ expression analysis
+#### _A. sinensis_ expression analysis
 This was a quick-and-dirty analysis of expression in _A. sinensis_, a side-thing that I had done for some other purpose. It was generated as follows using Nextflow (v24.04.4, Di Tommaso et al., 2017) and the `nf-core/rnaseq` workflow (v3.18.0, Patel et al., 2024):
 
 ```
@@ -102,7 +102,7 @@ cat coding_gene.annotation.exons.gene_ids.gtf \
     | grep -v '"evm.model.Scaffold95.19"' \
     > coding_gene.annotation.clean.gtf
 ```
-### Expression in orthogroups
+#### Expression in orthogroups
 
 ![The linked script](assets/eseb2025/minimal-expression-analysis.R) was used to identify the proportion of proteins for each species that are assigned to an orthogroup containing an _A. sinensis_ protein with transcript evidence.
 
@@ -110,31 +110,31 @@ cat coding_gene.annotation.exons.gene_ids.gtf \
 > This is obviously a hacky solution. A low percentage of proteins in orthogroups with _A. sinensis_ protein with transcript evidence does not necessarily mean that an annotation is unreliable. Potential explanations for this could in fact be that the _A. sinensis_ annotation is missing stuff.  
 
 
-# Results
+## Results
 
-## Identified annotations
+### Identified annotations
 Among the Thymelaeaceae I have found published annotations for _Aquilaria sinensis_ (Ding et al., 2020), _Stellera chamaejasme_ (Hu et al., 2022), and _Aquilaria yunnanensis_ (Li et al., 2024). There are additional publications on Thymelaeaceae that do annotations, but these do not seem to be publicly available (Chen et al., 2014; Nong et al., 2020; Das et al., 2021).
 
-### Overview of the annotations and their issues
+#### Overview of the annotations and their issues
 The following provides a brief summary of the published annotations, something about how they are generated and some of the issues I've identified. 
 
 > [!Note]
 > I am thankful to the authors for making these annotations available. I appreciate the work that they have put in. I hope that the comments below are constructive, and serve to help others make the best possible use of these annotations and the work that has gone into them. If you feel that I am doing any of these annotation an injustice, please reach out so that I can represent them in a fair way.
 
-#### _A. sinensis_ (Ding et al. 2020 doi:10.1093/gigascience/giaa013)
+##### _A. sinensis_ (Ding et al. 2020 doi:10.1093/gigascience/giaa013)
 This annotation is built RNA-seq and IsoSeq data, and combines this with homology information and _ab initio_ predictions. Genome versions are provided for the genomes used in the homology analyses, but annotation versions are lacking. There is no information given on which EVM weights are used. A significant issue with this annotation is that the gff file cannot be used as is, as some gene models are split in nonsensical ways across chromosomes. A potential explanation for this is that genome annotation was performed prior to scaffolding, and then transferred.
 
-#### Stellera chamaejasme (Hu et al. 2022 doi:10.1111/mec.16622)
+##### Stellera chamaejasme (Hu et al. 2022 doi:10.1111/mec.16622)
 
 This annotation combines homology data with _ab initio_ predictions. _Ab initio_ predictions were based on _Arabidopsis_ parameters for two out of three methods. This annotation is not built on any transcript data. The publication itself does not specify which exact annotation versions were used from other species, though the author has clarified this in the ![GitHub repo](https://github.com/hhy18/Annotation-files-of-Stellera-chamaejasme/issues/1).
 
 The major issue with this annotation is the lack of transcript evidence, combined with EVidenceModeler being used to combine homology and _ab initio_ predictions with equal weights. Using EVM in this way means that it is possible that _ab initio_ predictions overrule homology evidence.
 
-#### A. yunnanensis (Li et al. 2024 doi:10.1038/s41597-024-03635-z)
+##### A. yunnanensis (Li et al. 2024 doi:10.1038/s41597-024-03635-z)
 
 This annotation combines IsoSeq data with homology information and _ab initio_ predictions. For some species it is not clear which exact annotations were used as inputs as annotation versions are not given. A minor issue is that the gff file and the genome fasta file have different identifiers for the chromosomes.
 
-## OMArk
+### OMArk
 
 The following figures show the OMArk result for _A. sinensis_, _Stellera_, _A. yunnanensis_ and _Arabidopsis_.
 
@@ -185,7 +185,7 @@ __OMArk consistensy assessment__
 |Contaminants, fragmented|0 (0.00%)|0 (0.00%)|0 (0.00%)|0 (0.00%)|
 |Total Unknown|6004 (20.56%)|10346 (33.45%)|4370 (15.63%)|1487 (5.38%)|
 
-## Mono:multi-exonic genes
+### Mono:multi-exonic genes
 
 The following table shows the number of mono- and multi-exonic protein coding genes per species, as well as the ratio between them.
 
@@ -197,7 +197,7 @@ The following table shows the number of mono- and multi-exonic protein coding ge
 |_A. yunnanensis_|7710|20245|27955|0.380835|
 |_Arabidopsis_|5272|22261|27533|0.236827|
 
-## Orthofinder
+### Orthofinder
 
 OrthoFinder generates a total of 38,717 orthogroups, with 16,219 of these containing only a single protein. The distribution of the numbers of proteins per orthogroup looks as follows:
 
@@ -216,7 +216,7 @@ Adding in the OMArk categories for the species analyzed using that tool to the a
 
 ![Co-occurrence of species and OMArk categories in orthogroups](assets/eseb2025/orthogroup-category-upset.png)
 
-## _A. sinensis_ expression analysis
+### _A. sinensis_ expression analysis
 
 The following table shows the number of proteins per species that belong to an orthogroup containing a protein with RNA-seq evidence from _A. sinensis_.
 
@@ -229,7 +229,7 @@ The following table shows the number of proteins per species that belong to an o
 |Cacao          |          2861|     18469| 21330|              0.8658697|
 |Cotton         |         21511|     58628| 80139|              0.7315789|
 
-# Discussion
+## Discussion
 
 The above analysis attempts to provide an overview of the state of Thymelaeaceae annotations. In short, all the published annotations have various problems, but both the _Aquilaria_ annotations are based in part on transcriptome data, and it it clear that a large proportion of the published proteins, including a number of those that OMArk classifies as `Unknown`, are plausibly expressed.
 
@@ -240,7 +240,7 @@ The methods I'm using here come with very clear limitations. The small number of
 As I point out in the methods, counting proteins present in orthogroups where _A. sinensis_ has a protein backed by transcript evidence is a very hacky solution born out of convenience. Those results does say something about the *Aquilaria*s and cacoa, i.e., that a large proportion of their proteins end up in similar orthogroups and that these orthogroup contains _A. sinensis_ proteins with transcript evidence. What we can say is that the *Stellera*'s OMArk `Unknown`s can't be easily explained as only a result of bad database coverage -- this is yet another thing pointing to a lot of these proteins potentially being artifacts.
 
 
-# References
+## References
 
 Argout, X. et al. (2017) ‘The cacao Criollo genome v2.0: an improved version of the genome for genetic and functional genomic studies’, BMC Genomics, 18(1), pp. 1–9. Available at: https://doi.org/10.1186/s12864-017-4120-9.
 
@@ -274,7 +274,7 @@ Pertea, G. and Pertea, M. (2020) ‘GFF Utilities: GffRead and GffCompare’, F1
 
 Vuruputoor, V.S. et al. (2023) ‘Welcome to the big leaves: Best practices for improving genome annotation in non-model plant genomes’, Applications in Plant Sciences, 11(4), p. e11533. Available at: https://doi.org/10.1002/aps3.11533.
 
-# Image attributions
+## Image attributions
 
 The following images have been used for the poster:
 - ![Photo of _A. malaccensis_](https://en.wikipedia.org/wiki/File:Aqualaria_malaccensis.jpg) by Muhd Amirul Rasdey Abdullah, ![CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
