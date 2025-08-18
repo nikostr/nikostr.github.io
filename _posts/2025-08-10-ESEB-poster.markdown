@@ -53,7 +53,7 @@ This was done for _Aquilaria sinensis_, _Stellera chamaejasme_, _A. yunnanensis_
 
 ### Orthofinder
 
-OrthoFinder (v3.1.0, Emms et al., 2025) was run on proteins from _Arabidopsis_, _Stellera_, _A. sinensis_, _A. yunnanensis_, cotton, and cacao, i.e., the species used for the annotation of _A. yunnanensis_. The protein fastas used are listed in the table above. For _Arabidopsis_, _A. sinensis_, and _A. yunnanensis_ the files were used as-is. For cotton and cacao the OrthoFinder `primary_transcripts.py` script was used with ![minor modifications](https://github.com/nikostr/OrthoFinder/commit/89d8e1ad16e7403d573ea125329bd20ecfecf1de). For cacao, `primary_transcripts.py` was invoked as:
+OrthoFinder (v3.1.0, Emms et al., 2025) was run on proteins from _Arabidopsis_, _Stellera_, _A. sinensis_, _A. yunnanensis_, cotton, and cacao, i.e., the species used for the annotation of _A. yunnanensis_. The protein fastas used are listed in the table above. For _Arabidopsis_, _A. sinensis_, and _A. yunnanensis_ the files were used as-is. For cotton and cacao the OrthoFinder `primary_transcripts.py` script was used with [minor modifications](https://github.com/nikostr/OrthoFinder/commit/89d8e1ad16e7403d573ea125329bd20ecfecf1de). For cacao, `primary_transcripts.py` was invoked as:
 
 ```
 python primary_transcript.py Theobroma_cacaoV2_annot_protein.faa last_dot_after_space
@@ -126,7 +126,7 @@ This annotation is built RNA-seq and IsoSeq data, and combines this with homolog
 
 ##### Stellera chamaejasme (Hu et al. 2022 doi:10.1111/mec.16622)
 
-This annotation combines homology data with _ab initio_ predictions. _Ab initio_ predictions were based on _Arabidopsis_ parameters for two out of three methods. This annotation is not built on any transcript data. The publication itself does not specify which exact annotation versions were used from other species, though the author has clarified this in the ![GitHub repo](https://github.com/hhy18/Annotation-files-of-Stellera-chamaejasme/issues/1).
+This annotation combines homology data with _ab initio_ predictions. _Ab initio_ predictions were based on _Arabidopsis_ parameters for two out of three methods. This annotation is not built on any transcript data. The publication itself does not specify which exact annotation versions were used from other species, though the author has clarified this in the [GitHub repo](https://github.com/hhy18/Annotation-files-of-Stellera-chamaejasme/issues/1).
 
 The major issue with this annotation is the lack of transcript evidence, combined with EVidenceModeler being used to combine homology and _ab initio_ predictions with equal weights. Using EVM in this way means that it is possible that _ab initio_ predictions overrule homology evidence.
 
@@ -277,8 +277,8 @@ Vuruputoor, V.S. et al. (2023) ‘Welcome to the big leaves: Best practices for 
 ## Image attributions
 
 The following images have been used for the poster:
-- ![Photo of _A. malaccensis_](https://en.wikipedia.org/wiki/File:Aqualaria_malaccensis.jpg) by Muhd Amirul Rasdey Abdullah, ![CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
-- ![Photo of _A. sinensis_](https://species.wikimedia.org/wiki/File:HK_Aquilaria_sinensis.JPG) by Chong Fat, ![CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/deed.en)
-- ![Photos of Stellera chamaejasme](https://www.inaturalist.org/observations/298060527) by Urgamal Magsar, ![CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- [Photo of _A. malaccensis_](https://en.wikipedia.org/wiki/File:Aqualaria_malaccensis.jpg) by Muhd Amirul Rasdey Abdullah, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
+- [Photo of _A. sinensis_](https://species.wikimedia.org/wiki/File:HK_Aquilaria_sinensis.JPG) by Chong Fat, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/deed.en)
+- [Photos of Stellera chamaejasme](https://www.inaturalist.org/observations/298060527) by Urgamal Magsar, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Photos of _Wikstroemia_ by Ruben Cousins Westerberg
 
