@@ -45,7 +45,7 @@ omark -f results/${query_name}.omamer -d $LUCA --og_fasta $query --taxid $taxids
 This was done for _Aquilaria sinensis_, _Stellera chamaejasme_, _A. yunnanensis_, and _Arabidopsis thaliana_. For each species, the protein fasta file from the above table above was used as is.
 
 ### Mono:multi-exonic genes
-![The linked script](assets/eseb2025/count-exons.sh) was used to calculate the proportion of mono-exonic to multi-exonic genes.
+![The linked script](/assets/eseb2025/count-exons.sh) was used to calculate the proportion of mono-exonic to multi-exonic genes.
 
 > [!note]
 > It turns out that how this ratio is calculated differs in the literature. Jain et al. (2008) is sometimes cited, saying that intronless genes account for appproximately 20% of total genes in rice and _Arabidopsis_. Vuruputoor et al. (2023) cite Jain et al. for a ratio of 20%, but seem to instead calculate the ratio as mono-exonic:multi-exonic genes. As is seen in the attached script, I have opted for the mono-exonic:multi-exonic ratio instead of the mono-exonic:total genes.
@@ -82,7 +82,7 @@ nextflow run \
     --stringtie_ignore_gtf
 ```
 
-The genome used was the _A. sinensis_ `chr_genome_assembly.fasta` accessible through the link in the table above. ![The samples](assets/eseb2025/a.sinensis.samples.txt) were _A. sinensis_ illumina transcriptomics samples available at ENA (European Nucleotide Archive) on 2025-02-12. As `coding_gene.annotation.gff` has some issues (e.g., transcripts split across different chromosomes) and was not in line with what the `nf-core/rnaseq` pipeline required, it had to be cleaned up. The cleaned GTF file was generated as follows:
+The genome used was the _A. sinensis_ `chr_genome_assembly.fasta` accessible through the link in the table above. ![The samples](/assets/eseb2025/a.sinensis.samples.txt) were _A. sinensis_ illumina transcriptomics samples available at ENA (European Nucleotide Archive) on 2025-02-12. As `coding_gene.annotation.gff` has some issues (e.g., transcripts split across different chromosomes) and was not in line with what the `nf-core/rnaseq` pipeline required, it had to be cleaned up. The cleaned GTF file was generated as follows:
 ```
 cat coding_gene.annotation.gff \
     | sed 's/\tCDS\t/\texon\t/' \
@@ -104,7 +104,7 @@ cat coding_gene.annotation.exons.gene_ids.gtf \
 ```
 #### Expression in orthogroups
 
-![The linked script](assets/eseb2025/minimal-expression-analysis.R) was used to identify the proportion of proteins for each species that are assigned to an orthogroup containing an _A. sinensis_ protein with transcript evidence.
+![The linked script](/assets/eseb2025/minimal-expression-analysis.R) was used to identify the proportion of proteins for each species that are assigned to an orthogroup containing an _A. sinensis_ protein with transcript evidence.
 
 > [!Note]
 > This is obviously a hacky solution. A low percentage of proteins in orthogroups with _A. sinensis_ protein with transcript evidence does not necessarily mean that an annotation is unreliable. Potential explanations for this could in fact be that the _A. sinensis_ annotation is missing stuff.  
@@ -138,13 +138,13 @@ This annotation combines IsoSeq data with homology information and _ab initio_ p
 
 The following figures show the OMArk result for _A. sinensis_, _Stellera_, _A. yunnanensis_ and _Arabidopsis_.
 
-![_A. sinensis_ OMArk results](assets/eseb2025/A.sinensis.png)
+![_A. sinensis_ OMArk results](/assets/eseb2025/A.sinensis.png)
 
-![_Stellera_ OMArk results](assets/eseb2025/langdu.png)
+![_Stellera_ OMArk results](/assets/eseb2025/langdu.png)
 
-![_A. yunnanensis_ OMArk results](assets/eseb2025/A.yunnanensis.png)
+![_A. yunnanensis_ OMArk results](/assets/eseb2025/A.yunnanensis.png)
 
-![_Arabidopsis_ OMArk results](assets/eseb2025/Araport11.png)
+![_Arabidopsis_ OMArk results](/assets/eseb2025/Araport11.png)
 
 The following tables provide more detailed results:
 
@@ -201,20 +201,20 @@ The following table shows the number of mono- and multi-exonic protein coding ge
 
 OrthoFinder generates a total of 38,717 orthogroups, with 16,219 of these containing only a single protein. The distribution of the numbers of proteins per orthogroup looks as follows:
 
-![Number of proteins per orthogroup](assets/eseb2025/n-proteins-in-orthogroup.png)
+![Number of proteins per orthogroup](/assets/eseb2025/n-proteins-in-orthogroup.png)
 
 For each species, the number of proteins, and whether the protein belongs to a single-protein or multi-protein orthogroup is illustrated below:
 
-![Number of proteins per species, and whether these belong to a single- or multi-protein orthogroup](assets/eseb2025/single-n-orthogroups.png)
+![Number of proteins per species, and whether these belong to a single- or multi-protein orthogroup](/assets/eseb2025/single-n-orthogroups.png)
 
 Among the orthogroups, the species co-occur as follows:
 
-![Co-occurrence of species in orthogroups](assets/eseb2025/orthogroup-upset.png)
+![Co-occurrence of species in orthogroups](/assets/eseb2025/orthogroup-upset.png)
 
 Adding in the OMArk categories for the species analyzed using that tool to the above, the distribution looks as follows:
 
 
-![Co-occurrence of species and OMArk categories in orthogroups](assets/eseb2025/orthogroup-category-upset.png)
+![Co-occurrence of species and OMArk categories in orthogroups](/assets/eseb2025/orthogroup-category-upset.png)
 
 ### _A. sinensis_ expression analysis
 
