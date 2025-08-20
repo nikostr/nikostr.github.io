@@ -8,6 +8,8 @@ categories: posters
 
 I chose to focus on the status of the Thymelaeaceae annotations as I'm currently trying to annotate a bunch of _Wikstroemia_ species, and I wanted to get a better idea about the status of the published annotations.
 
+A link to the full poster is available ![here](assets/eseb2025/poster.pdf).
+
 ## TL;DR
 All the Thymelaeaceae annotations I found have some issues with methods or the generated files themselves. The _Aquilaria sinensis_ and _A. yunnanensis_ annotations are based on transcript evidence and seem pretty okay, and can probably be used as-is, after correcting for files being badly formatted. The _Stellera chamaejasme_ annotation is not based on transcript data and has some pretty clear methods issues, and seems to suffer from over-prediction. If using the _Stellera_ annotation you probably want to account for this in some way.
 
