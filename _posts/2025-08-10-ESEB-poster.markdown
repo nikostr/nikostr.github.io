@@ -49,8 +49,7 @@ This was done for _Aquilaria sinensis_, _Stellera chamaejasme_, _A. yunnanensis_
 ### Mono:multi-exonic genes
 ![The linked script](/assets/eseb2025/count-exons.sh) was used to calculate the proportion of mono-exonic to multi-exonic genes.
 
-> [!note]
-> It turns out that how this ratio is calculated differs in the literature. Jain et al. (2008) is sometimes cited, saying that intronless genes account for appproximately 20% of total genes in rice and _Arabidopsis_. Vuruputoor et al. (2023) cite Jain et al. for a ratio of 20%, but seem to instead calculate the ratio as mono-exonic:multi-exonic genes. As is seen in the attached script, I have opted for the mono-exonic:multi-exonic ratio instead of the mono-exonic:total genes.
+{% include note.html content="It turns out that how this ratio is calculated differs in the literature. Jain et al. (2008) is sometimes cited, saying that intronless genes account for appproximately 20% of total genes in rice and _Arabidopsis_. Vuruputoor et al. (2023) cite Jain et al. for a ratio of 20%, but seem to instead calculate the ratio as mono-exonic:multi-exonic genes. As is seen in the attached script, I have opted for the mono-exonic:multi-exonic ratio instead of the mono-exonic:total genes." %}
 
 
 ### Orthofinder
@@ -108,8 +107,7 @@ cat coding_gene.annotation.exons.gene_ids.gtf \
 
 ![The linked script](/assets/eseb2025/minimal-expression-analysis.R) was used to identify the proportion of proteins for each species that are assigned to an orthogroup containing an _A. sinensis_ protein with transcript evidence.
 
-> [!Note]
-> This is obviously a hacky solution. A low percentage of proteins in orthogroups with _A. sinensis_ protein with transcript evidence does not necessarily mean that an annotation is unreliable. Potential explanations for this could in fact be that the _A. sinensis_ annotation is missing stuff.  
+{% include note.html content="This is obviously a hacky solution. A low percentage of proteins in orthogroups with _A. sinensis_ protein with transcript evidence does not necessarily mean that an annotation is unreliable. Potential explanations for this could in fact be that the _A. sinensis_ annotation is missing stuff." %}
 
 
 ## Results
@@ -120,8 +118,7 @@ Among the Thymelaeaceae I have found published annotations for _Aquilaria sinens
 #### Overview of the annotations and their issues
 The following provides a brief summary of the published annotations, something about how they are generated and some of the issues I've identified. 
 
-> [!Note]
-> I am thankful to the authors for making these annotations available. I appreciate the work that they have put in. I hope that the comments below are constructive, and serve to help others make the best possible use of these annotations and the work that has gone into them. If you feel that I am doing any of these annotation an injustice, please reach out so that I can represent them in a fair way.
+{% include note.html content="I am thankful to the authors for making these annotations available. I appreciate the work that they have put in. I hope that the comments below are constructive, and serve to help others make the best possible use of these annotations and the work that has gone into them. If you feel that I am doing any of these annotation an injustice, please reach out so that I can represent them in a fair way." %}
 
 ##### _A. sinensis_ (Ding et al. 2020 doi:10.1093/gigascience/giaa013)
 This annotation is built RNA-seq and IsoSeq data, and combines this with homology information and _ab initio_ predictions. Genome versions are provided for the genomes used in the homology analyses, but annotation versions are lacking. There is no information given on which EVM weights are used. A significant issue with this annotation is that the gff file cannot be used as is, as some gene models are split in nonsensical ways across chromosomes. A potential explanation for this is that genome annotation was performed prior to scaffolding, and then transferred.
