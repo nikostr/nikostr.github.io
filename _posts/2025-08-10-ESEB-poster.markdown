@@ -138,12 +138,16 @@ This annotation combines IsoSeq data with homology information and _ab initio_ p
 The following figures show the OMArk result for _A. sinensis_, _Stellera_, _A. yunnanensis_ and _Arabidopsis_.
 
 ![_A. sinensis_ OMArk results](/assets/eseb2025/A.sinensis.png)
+**_A. sinensis_ OMArk results**
 
 ![_Stellera_ OMArk results](/assets/eseb2025/langdu.png)
+**_Stellera_ OMArk results**
 
 ![_A. yunnanensis_ OMArk results](/assets/eseb2025/A.yunnanensis.png)
+**_A. yunnanensis_ OMArk results**
 
 ![_Arabidopsis_ OMArk results](/assets/eseb2025/Araport11.png)
+**_Arabidopsis_ OMArk results**
 
 The following tables provide more detailed results:
 
